@@ -1,0 +1,27 @@
+{
+  "name": "kmoe-client",
+  "version": "1.0.0",
+  "description": "example client for kmoe microservices",
+  "main": "index.js",
+  "scripts": {
+    "test": "sorry but no"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmoe/kmoe-client.git"
+  },
+  "author": "Katy Moe <katy@katy.moe> (http://katy.moe)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kmoe/kmoe-client/issues"
+  },
+  "homepage": "https://github.com/kmoe/kmoe-client#readme",
+  "dependencies": {
+    "good": "^7.0.0",
+    "good-console": "^6.1.1",
+    "good-loggly": "^2.0.0",
+    "hapi": "^13.4.0",
+    "inert": "^3.2.1",
+    "request": "^2.72.0"
+  }
+}
