@@ -12,31 +12,41 @@
     </style>
 </head>
 <body class="layout-default page-grid">
-<section class="section hero is-bold is-success">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Success!
-            </h1>
+    <section class="section hero is-bold is-success">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Success!
+                </h1>
+            </div>
         </div>
-    </div>
-</section>
-<section class="section">
-    <div class="container">
-        <ul id="box" class="logs">
-            <li>client <strong>initialised</strong></li>
-        </ul>
-    </div>
-</section>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-    var socket = io();
-    socket.emit('client_load');
-    socket.on('log', function(message){
-        var box = document.getElementById('box');
+    </section>
+    <section class="section">
+        <div class="container">
+            <ul id="box" class="logs">
+                <li>client <strong>initialised</strong></li>
+            </ul>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="content">
+                <p>
+                    Part of the <strong>NFC 2FA demo</strong> by <a href="http://katy.moe">Katy Moe</a>. The <a href="https://github.com/kmoe/kmoe-laptop">source code</a> is licensed
+                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.emit('client_load');
+        socket.on('log', function(message){
+            var box = document.getElementById('box');
 
-        box.innerHTML = box.innerHTML + '<li>' + message + '</li>';
-    });
-</script>
+            box.innerHTML = box.innerHTML + '<li>' + message + '</li>';
+        });
+    </script>
 </body>
 </html>

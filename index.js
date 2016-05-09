@@ -58,7 +58,6 @@ server.route({
   method: 'POST',
   path: '/login',
   handler: (req, reply) => {
-    log('form data posted');
     log(req.payload);
     if (req.payload && req.payload.password === process.env.PASSWORD_DEMO) {
       reply.file('success.html');
