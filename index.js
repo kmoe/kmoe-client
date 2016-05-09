@@ -1,6 +1,7 @@
 const Hapi = require('hapi');
 const request = require('request');
 const path = require('path');
+const moment = require('moment');
 
 const server = new Hapi.Server({
   connections: {
@@ -16,6 +17,20 @@ server.connection({
   port: process.env.PORT || 1337
 });
 
+const io = require('socket.io')(server.listener);
+
+io.on('connection', function(socket) {
+  log('client <strong>connected</strong>');
+
+  socket.on('client_load', function() {
+    log('client <strong>loaded</strong>');
+  });
+
+  socket.on('disconnect', function() {
+    log('a user <strong>disconnected</strong>');
+  });
+});
+
 server.register(require('inert'), (err) => {
 
   if (err) {
@@ -26,7 +41,7 @@ server.register(require('inert'), (err) => {
     if (err) {
       throw err;
     }
-    console.log('info', 'Server running at: ' + server.info.uri);
+    log('Server running at: ' + server.info.uri);
   });
 });
 
@@ -34,7 +49,7 @@ server.route({
     method: 'GET',
     path: '/',
     handler: (request, reply) => {
-      console.log('base route');
+      log('base route');
       return reply.file('index.html');
     },
 });
@@ -42,9 +57,39 @@ server.route({
 server.route({
   method: 'POST',
   path: '/login',
-  handler: (request, reply) => {
-    console.log('form data posted');
-    console.log(request.payload);
-    return reply('thanks');
+  handler: (req, reply) => {
+    log('form data posted');
+    log(req.payload);
+    if (req.payload && req.payload.password === process.env.PASSWORD_DEMO) {
+      reply.file('success.html');
+
+      setTimeout(() => { // YOLO
+        // make request to kmoe api
+        request({
+          uri: 'http://kmoe.herokuapp.com/verify',
+          method: 'GET',
+          timeout: 20000,
+        }, function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+            log(body);
+          } else {
+            log('server returned status code ' + response.statusCode);
+            log(error);
+          }
+        });
+      }, 2000);
+
+    } else {
+      log('unsuccessful login');
+      return reply.file('index.html');
+    }
   }
 });
+
+function log() {
+  const message = Array.prototype.slice.call(arguments).join(' ');
+  console.log(message);
+  if (io) {
+    io.emit('log', moment().format() + ': ' + message);
+  }
+}

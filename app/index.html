@@ -26,11 +26,13 @@
             <form method="post" action="/login">
                 <label class="label" for="username">Username</label>
                 <p class="control">
-                    <input class="input" type="text" id="username" name="username">
+                    <input class="input" type="text" id="username" name="username" required>
+                    <i class="fa fa-envelope"></i>
                 </p>
                 <label class="label" for="password">Password</label>
                 <p class="control">
-                    <input class="input" type="text" id="password" name="password">
+                    <input class="input" type="password" id="password" name="password" required>
+                    <i class="fa fa-lock"></i>
                 </p>
                 <button type="submit" class="button is-primary">Submit</button>
             </form>

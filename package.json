@@ -22,6 +22,8 @@
     "good-loggly": "^2.0.0",
     "hapi": "^13.4.0",
     "inert": "^3.2.1",
-    "request": "^2.72.0"
+    "moment": "^2.13.0",
+    "request": "^2.72.0",
+    "socket.io": "^1.4.6"
   }
 }
