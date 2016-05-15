@@ -94,6 +94,6 @@ function log() {
   const message = Array.prototype.slice.call(arguments).join(' ');
   console.log(message);
   if (io) {
-    io.emit('log', moment().format() + ': ' + message);
+    io.emit('log', moment().format('YYYY-MM-DD HH:mm:ss') + ': ' + message);
   }
 }
