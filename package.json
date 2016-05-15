@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kmoe/kmoe-client#readme",
   "dependencies": {
+    "bcrypt": "^0.8.6",
     "good": "^7.0.0",
     "good-console": "^6.1.1",
     "good-loggly": "^2.0.0",

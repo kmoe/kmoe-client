@@ -2,6 +2,7 @@ const Hapi = require('hapi');
 const request = require('request');
 const path = require('path');
 const moment = require('moment');
+const bcrypt = require('bcrypt');
 
 const server = new Hapi.Server({
   connections: {
@@ -58,8 +59,8 @@ server.route({
   method: 'POST',
   path: '/login',
   handler: (req, reply) => {
-    log(req.payload);
-    if (req.payload && req.payload.password === process.env.PASSWORD_DEMO) {
+    if (req.payload && bcrypt.compareSync(req.payload.password, process.env.PASSWORD_HASH)) {
+      log('successful login');
       reply.file('success.html');
 
       setTimeout(() => { // YOLO
