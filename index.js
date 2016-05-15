@@ -64,17 +64,21 @@ server.route({
       reply.file('success.html');
 
       setTimeout(() => { // YOLO
-        // make request to kmoe api
+        log('making request to NFC verification API');
         request({
           uri: 'http://kmoe.herokuapp.com/verify',
           method: 'GET',
           timeout: 20000,
         }, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            log(body);
-          } else {
-            log('server returned status code ' + response.statusCode);
+          if (error) {
             log(error);
+          } else if (response.statusCode) {
+            log('server returned status code ' + response.statusCode);
+            if (response.statusCode == 200) {
+              log(body);
+            }
+          } else {
+            log('malformed response');
           }
         });
       }, 2000);
